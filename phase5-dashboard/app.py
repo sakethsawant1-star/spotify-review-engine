@@ -102,8 +102,7 @@ LOG_FILE = Path(__file__).parent / "pipeline.log"
 def run_full_pipeline_task():
     """Background task to run the full pipeline and stream logs."""
     try:
-        with open(LOG_FILE, "w", encoding="utf-8") as f:
-            f.write("> Initializing full pipeline execution...\n")
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
             f.flush()
             
             # Step 1: Run scrapers
@@ -132,6 +131,8 @@ def run_full_pipeline_task():
 @app.post("/api/pipeline/run")
 def trigger_pipeline(background_tasks: BackgroundTasks):
     """Endpoint to trigger a new AI pipeline run asynchronously."""
+    with open(LOG_FILE, "w", encoding="utf-8") as f:
+        f.write("> Initializing full pipeline execution...\n")
     background_tasks.add_task(run_full_pipeline_task)
     return {"message": "Pipeline triggered successfully", "status": "running"}
 
