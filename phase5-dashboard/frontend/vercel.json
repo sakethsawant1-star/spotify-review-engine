@@ -2,6 +2,7 @@
   "version": 2,
   "name": "review-discovery-dashboard",
   "buildCommand": "echo 'No build step required'",
+  "outputDirectory": ".",
   "rewrites": [
     {
       "source": "/api/(.*)",
